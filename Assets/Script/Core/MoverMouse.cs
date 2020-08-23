@@ -1,0 +1,42 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Security.Cryptography;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class MoverMouse : MonoBehaviour
+{
+
+    [SerializeField] Transform target;
+
+    Ray lastRay;
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            
+            MoveToCursor();
+        }
+        
+        
+    }
+
+    private void MoveToCursor(){
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        RaycastHit hit;
+
+        bool hasHit=  Physics.Raycast(ray, out hit);
+
+        if(hasHit){
+            GetComponent<NavMeshAgent>().destination = hit.point;    
+        }
+
+        UnityEngine.Debug.DrawRay(ray.origin, ray.direction * 100);
+
+
+    }
+}
