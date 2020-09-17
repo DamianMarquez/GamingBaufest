@@ -4,9 +4,10 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.AI;
+using Mirror;
 
 namespace RPG.Movement{
-    public class Mover : MonoBehaviour
+    public class Mover : NetworkBehaviour
     {
 
         [SerializeField] Transform target;

@@ -3,14 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Movement;
 using RPG.Combat;
+using Mirror;
 
 namespace RPG.Controller{
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : NetworkBehaviour
     {
-
+        void Start(){
+            if (isLocalPlayer){
+                FindObjectOfType<RPG.Core.FollowCamera>().target = transform;
+            }
+        }
 
         //UPDATE DEL CONTROLLER - METODO LLAMADO SIEMPRE POR UNITY
+
         private void Update() {
+            
+            // movement for local player
+            if (!isLocalPlayer)
+                return;
 
             InteractWithCombat();
             InteractWithMovement();
@@ -36,12 +46,14 @@ namespace RPG.Controller{
         }
 
         //METODO PARA INTERACTUAR CON MOVIMIENTO
+
         private void InteractWithMovement(){
                 if (Input.GetMouseButton(0))
                 {
                     MoveToCursor();
                 }
         }
+
         private void MoveToCursor()
         {
             Ray ray = GetMouseRay();
