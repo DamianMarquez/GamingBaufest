@@ -3,14 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Movement;
 using RPG.Combat;
+using Mirror;
 
-namespace RPG.Controller{
-    public class PlayerController : MonoBehaviour
+namespace RPG.Controller
+{
+    public class PlayerController : NetworkBehaviour
     {
-
+        [SerializeField] Cinemachine.CinemachineVirtualCamera CinemaCamera;
+        void Start()
+        {
+            if (isLocalPlayer)
+            {
+                asignarCamera();
+                FindObjectOfType<RPG.Core.FollowCamera>().target = transform;
+            }
+        }
 
         //UPDATE DEL CONTROLLER - METODO LLAMADO SIEMPRE POR UNITY
-        private void Update() {
+
+        private void Update()
+        {
+
+            // movement for local player
+            if (!isLocalPlayer)
+                return;
 
             InteractWithCombat();
             InteractWithMovement();
@@ -18,16 +34,19 @@ namespace RPG.Controller{
 
 
         //METODO PARA INTERACTUAR CON COMBATE
-        private void InteractWithCombat(){
-            
+        private void InteractWithCombat()
+        {
+
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
 
             foreach (RaycastHit hit in hits)
             {
                 CombatTarget target = hit.transform.GetComponent<CombatTarget>();
-                if(target != null){
+                if (target != null)
+                {
 
-                    if(Input.GetMouseButtonDown(0)){
+                    if (Input.GetMouseButtonDown(0))
+                    {
                         GetComponent<Fighter>().Attack(target);
                     }
 
@@ -36,12 +55,15 @@ namespace RPG.Controller{
         }
 
         //METODO PARA INTERACTUAR CON MOVIMIENTO
-        private void InteractWithMovement(){
-                if (Input.GetMouseButton(0))
-                {
-                    MoveToCursor();
-                }
+
+        private void InteractWithMovement()
+        {
+            if (Input.GetMouseButton(0))
+            {
+                MoveToCursor();
+            }
         }
+
         private void MoveToCursor()
         {
             Ray ray = GetMouseRay();
@@ -56,6 +78,13 @@ namespace RPG.Controller{
         private static Ray GetMouseRay()
         {
             return Camera.main.ScreenPointToRay(Input.mousePosition);
+        }
+        private void asignarCamera()
+        {
+            GameObject ObjectCamera = GameObject.FindWithTag("cinemaMachine");
+            CinemaCamera = ObjectCamera.GetComponent<Cinemachine.CinemachineVirtualCamera>();
+            CinemaCamera.m_LookAt = this.transform;
+            CinemaCamera.m_Follow = this.transform;
         }
     }
 
