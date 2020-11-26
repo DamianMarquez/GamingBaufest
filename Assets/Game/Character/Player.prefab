@@ -127,6 +127,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   target: {fileID: 0}
+  navMesh: {fileID: 3371898517157360869}
+  animator: {fileID: 1871178460}
 --- !u!95 &1871178460
 Animator:
   serializedVersion: 3
@@ -160,6 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  CinemaCamera: {fileID: 0}
 --- !u!114 &95610375
 MonoBehaviour:
   m_ObjectHideFlags: 0

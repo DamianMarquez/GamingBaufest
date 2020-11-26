@@ -15,7 +15,6 @@ namespace RPG.Controller
             if (isLocalPlayer)
             {
                 asignarCamera();
-                FindObjectOfType<RPG.Core.FollowCamera>().target = transform;
             }
         }
 
