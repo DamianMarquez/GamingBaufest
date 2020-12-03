@@ -1,7 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.AI;
 using Mirror;
@@ -17,23 +15,23 @@ namespace RPG.Movement{
         // Update is called once per frame
         void Update()
         {
-        
-            UpdateAnimator();
+            if(isLocalPlayer)
+                UpdateAnimator();
         
         }
-
-
+        public NavMeshAgent navMesh;
+        public Animator animator;
 
         public void MoveTo(Vector3 destination)
         {
-            GetComponent<NavMeshAgent>().destination = destination;
+            navMesh.destination = destination;
         }
 
         private void UpdateAnimator(){
-            Vector3 velocity = GetComponent<NavMeshAgent>().velocity;
+            Vector3 velocity = navMesh.velocity;
             Vector3 localVelocity = transform.InverseTransformDirection(velocity);
             float speed = localVelocity.z;
-            GetComponent<Animator>().SetFloat("forwardSpeed",speed);
+            animator.SetFloat("forwardSpeed",speed);
         }
     }
 
