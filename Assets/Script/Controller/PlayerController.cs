@@ -40,10 +40,10 @@ namespace RPG.Controller
 
             foreach (RaycastHit hit in hits)
             {
+                //Cambiar CombatTarget a Enemy? Objetos destruibles?
                 CombatTarget target = hit.transform.GetComponent<CombatTarget>();
                 if (target != null)
                 {
-
                     if (Input.GetMouseButtonDown(0))
                     {
                         GetComponent<Fighter>().Attack(target);
