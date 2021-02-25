@@ -1,14 +1,16 @@
 using System;
 using UnityEngine;
+using Mirror;
+using RPG.Movement;
 
 namespace RPG.Combat{
-    public class CombatTarget : MonoBehaviour {
+    public class CombatTarget : NetworkBehaviour {
 
         private float vidaActual;
         public Armadura armaduraEquipada = new ArmaduraCuero();
         public float vidaMaxima = 100;
         public event Action<float> CambioPorcentajeVida = delegate { };
-
+        [SerializeField] Mover mover;
         private void OnEnable()
         {
             vidaActual = vidaMaxima;
@@ -27,13 +29,14 @@ namespace RPG.Combat{
             CambioPorcentajeVida(porcentajeVidaActual);
              
             Debug.Log("Vida restante =" + vidaActual);
-            
+            mover.Damaged();
             ChequearMuerte();
         }
 
         private void ChequearMuerte(){
             if(vidaActual <= 0.0f){
                 Debug.Log("Muerto");
+                mover.Die();
             }
         }
     }

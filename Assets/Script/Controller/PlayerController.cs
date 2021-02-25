@@ -10,6 +10,8 @@ namespace RPG.Controller
     public class PlayerController : NetworkBehaviour
     {
         [SerializeField] Cinemachine.CinemachineVirtualCamera CinemaCamera;
+        [SerializeField] Fighter fighter;
+        [SerializeField] Collider collider;
         void Start()
         {
             if (isLocalPlayer)
@@ -41,12 +43,16 @@ namespace RPG.Controller
             foreach (RaycastHit hit in hits)
             {
                 //Cambiar CombatTarget a Enemy? Objetos destruibles?
+                if(GameObject.Equals(hit.collider,collider)) {
+                    Debug.Log("Intenta atacarse a si mismo!");
+                    return;
+                }
                 CombatTarget target = hit.transform.GetComponent<CombatTarget>();
                 if (target != null)
                 {
                     if (Input.GetMouseButtonDown(0))
                     {
-                        GetComponent<Fighter>().Attack(target);
+                        fighter.Attack(target);
                     }
 
                 }

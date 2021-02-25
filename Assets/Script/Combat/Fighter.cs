@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
+using RPG.Movement;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour
+    public class Fighter : NetworkBehaviour
     {
         public Arma armaEquipada = new Espada();    
+        [SerializeField] Mover mover;
 
         public void Attack(CombatTarget target){
             print ("Atacando");
@@ -14,7 +17,7 @@ namespace RPG.Combat
             if(ObjetivoEnRango(target)){
                 if(AtaquePega(target)){
                     var danio = CalcularDanio(target);
-
+                    mover.Attack();
                     target.AplicarDanio(danio);
                 }
             }

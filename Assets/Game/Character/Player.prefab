@@ -28,6 +28,7 @@ GameObject:
   - component: {fileID: 8350552191530869196}
   - component: {fileID: -6458135633973751198}
   - component: {fileID: -5673866247886179948}
+  - component: {fileID: 5873520868989553120}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -131,6 +132,7 @@ MonoBehaviour:
   target: {fileID: 0}
   navMesh: {fileID: 3371898517157360869}
   animator: {fileID: 1871178460}
+  networkAnimator: {fileID: -5673866247886179948}
 --- !u!95 &1871178460
 Animator:
   serializedVersion: 3
@@ -143,7 +145,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: d288a0e4a2d923b46898986e979da643, type: 3}
   m_Controller: {fileID: 9100000, guid: 06b75db759c56b641ae6baf84dfeb8cc, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 1
+  m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -165,6 +167,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   CinemaCamera: {fileID: 0}
+  fighter: {fileID: 95610375}
+  collider: {fileID: 5873520868989553120}
 --- !u!114 &95610375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +181,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a996774ffd504498372f4b8c33ce4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  mover: {fileID: 3371898517157360868}
 --- !u!114 &7876735292090364693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,7 +227,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3df9e4af09094e448fac48d896aa4ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vidaMaxima: 100
+  syncMode: 0
+  syncInterval: 0.1
+  vidaMaxima: 1
+  mover: {fileID: 3371898517157360868}
 --- !u!114 &-6458135633973751198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,6 +265,20 @@ MonoBehaviour:
   syncInterval: 0.01
   clientAuthority: 1
   animator: {fileID: 1871178460}
+--- !u!136 &5873520868989553120
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3371898517157360863}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2308077362871062710
 PrefabInstance:
   m_ObjectHideFlags: 0
